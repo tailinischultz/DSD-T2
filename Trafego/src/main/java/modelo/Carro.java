@@ -1,4 +1,4 @@
 package modelo;
 
-public class Carro {
+public abstract class Carro {
 }
