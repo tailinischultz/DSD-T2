@@ -1,4 +1,8 @@
 package controle;
 
-public class ControleMalha {
+import javax.swing.*;
+
+public class ControleMalha extends Thread{
+
+   
 }
