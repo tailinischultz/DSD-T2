@@ -7,7 +7,7 @@ public class MonitorCarro extends Carro {
     }
 
     @Override
-    public void setNodoAtual(Nodo nodo) {
+    public void setNodoAtual(Segmento nodo) {
 
     }
 }
