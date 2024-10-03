@@ -5,18 +5,19 @@ public class Segmento {
 
     private Carro carro;
     private Carro reserva;
-    private MalhaViaria malhaViaria;
     private String direcao;
     private boolean saida;
     private int idxLinha;
     private int idxColuna;
+    private String caracter;
+    
 
-    public Segmento(String direcao, int idxLinha, int idxColuna, MalhaViaria malhaViaria, boolean saida) {
+    public Segmento(String direcao, int idxLinha, int idxColuna, boolean saida, String caracter) {
         this.direcao = direcao;
         this.idxLinha = idxLinha;
         this.idxColuna = idxColuna;
-        this.malhaViaria = malhaViaria;
         this.saida = saida;
+        this.caracter = caracter;
     }
    
     public Carro getCarro() {
@@ -67,10 +68,15 @@ public class Segmento {
         this.idxColuna = idxColuna;
     }
 
-    public MalhaViaria getMalhaViaria() {
-        return malhaViaria;
+    public String getCaracter() {
+        return caracter;
     }
 
+    public void setCaracter(String caracter) {
+        this.caracter = caracter;
+    }
+    
+    
     public boolean isCruzamento() {
         return this.direcao == "Cruzamento_Cima"           ||
                 this.direcao == "Cruzamento_Baixo"          ||
