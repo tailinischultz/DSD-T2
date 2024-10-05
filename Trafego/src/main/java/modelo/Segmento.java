@@ -11,7 +11,7 @@ public class Segmento {
     private int idxColuna;
     private String caracter;
     
-
+    
     public Segmento(String direcao, int idxLinha, int idxColuna, boolean saida, String caracter) {
         this.direcao = direcao;
         this.idxLinha = idxLinha;

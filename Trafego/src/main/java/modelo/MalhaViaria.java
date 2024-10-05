@@ -28,6 +28,13 @@ public class MalhaViaria {
                     matrizLida[i][j] = Integer.parseInt(linha[j]);
                 }
             }
+           
+            for (int i = 0; i < matrizLida.length; i++){
+                for (int j = 0; j < matrizLida[0].length; j++){
+                    System.out.print(matrizLida[i][j] + " ");
+                }
+                    System.out.println();
+            }
 
             return matrizLida;
         }
@@ -37,7 +44,7 @@ public class MalhaViaria {
         
         this.segmentos = new Segmento[matrizLida.length][matrizLida[0].length];
         for (int i = 0; i < matrizLida.length; i++){
-            for (int j = 0; j < matrizLida[0].length; j++){                
+            for (int j = 0; j < matrizLida[0].length; j++){    
                 switch (matrizLida[i][j]) {
                     case 0: 
                         this.segmentos[i][j] = new Segmento(null, i, j, false, "");
@@ -101,7 +108,14 @@ public class MalhaViaria {
                 }
             }
         }
-        
+
+        for (int i = 0; i < segmentos.length; i++) {
+            for (int j = 0; j < segmentos[0].length; j++) {
+                System.out.print(segmentos[i][j].getCaracter() + " ");
+            }
+            System.out.println();
+        }
+
         return this.segmentos;
     }
 
