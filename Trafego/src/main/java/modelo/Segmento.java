@@ -10,14 +10,16 @@ public class Segmento {
     private int idxLinha;
     private int idxColuna;
     private String caracter;
-    
-    
-    public Segmento(String direcao, int idxLinha, int idxColuna, boolean saida, String caracter) {
+    private MalhaViaria malhaViaria;
+
+
+    public Segmento(String direcao, int idxLinha, int idxColuna, boolean saida, String caracter,MalhaViaria malhaViaria) {
         this.direcao = direcao;
         this.idxLinha = idxLinha;
         this.idxColuna = idxColuna;
         this.saida = saida;
         this.caracter = caracter;
+        this.malhaViaria = malhaViaria;
     }
    
     public Carro getCarro() {
@@ -52,6 +54,9 @@ public class Segmento {
         this.saida = saida;
     }
 
+    public MalhaViaria getMalhaViaria() {
+        return malhaViaria;
+    }
     public int getIdxLinha() {
         return idxLinha;
     }

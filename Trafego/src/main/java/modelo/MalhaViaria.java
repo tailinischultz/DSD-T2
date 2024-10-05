@@ -47,63 +47,63 @@ public class MalhaViaria {
             for (int j = 0; j < matrizLida[0].length; j++){    
                 switch (matrizLida[i][j]) {
                     case 0: 
-                        this.segmentos[i][j] = new Segmento(null, i, j, false, "");
+                        this.segmentos[i][j] = new Segmento(null, i, j, false, "",this);
                         break;
                     case 1:
                         if (i == 0){
-                            this.segmentos[i][j] = new Segmento("Estrada_Cima", i, j, true, "|");
+                            this.segmentos[i][j] = new Segmento("Estrada_Cima", i, j, true, "|",this);
                             break;
                         }else{
-                            this.segmentos[i][j] = new Segmento("Estrada_Cima", i, j, false, "|");
+                            this.segmentos[i][j] = new Segmento("Estrada_Cima", i, j, false, "|",this);
                             break;
                         }
                     case 2:
                         if (j == matrizLida[0].length - 1){
-                            this.segmentos[i][j] = new Segmento("Estrada_Direita", i, j, true, "-");
+                            this.segmentos[i][j] = new Segmento("Estrada_Direita", i, j, true, "-",this);
                             break; 
                         }else{
-                            this.segmentos[i][j] = new Segmento("Estrada_Direita", i, j, false, "-");
+                            this.segmentos[i][j] = new Segmento("Estrada_Direita", i, j, false, "-",this);
                             break;                            
                         }
                     case 3:
                         if (i == matrizLida.length - 1){
-                            this.segmentos[i][j] = new Segmento("Estrada_Baixo", i, j, true, "|");
+                            this.segmentos[i][j] = new Segmento("Estrada_Baixo", i, j, true, "|",this);
                             break;
                         }else{
-                            this.segmentos[i][j] = new Segmento("Estrada_Baixo", i, j, false, "|");
+                            this.segmentos[i][j] = new Segmento("Estrada_Baixo", i, j, false, "|",this);
                             break;
                         }
                     case 4:
                         if(j == 0){
-                            this.segmentos[i][j] = new Segmento("Estrada_Esquerda", i, j, true, "-");
+                            this.segmentos[i][j] = new Segmento("Estrada_Esquerda", i, j, true, "-",this);
                             break;
                         }else{
-                            this.segmentos[i][j] = new Segmento("Estrada_Esquerda", i, j, false, "-");
+                            this.segmentos[i][j] = new Segmento("Estrada_Esquerda", i, j, false, "-",this);
                             break;
                         }
                     case 5:
-                        this.segmentos[i][j] = new Segmento("Cruzamento_Cima", i, j, false, "+");
+                        this.segmentos[i][j] = new Segmento("Cruzamento_Cima", i, j, false, "+",this);
                         break;
                     case 6:
-                        this.segmentos[i][j] = new Segmento("Cruzamento_Direita", i, j, false, "+");
+                        this.segmentos[i][j] = new Segmento("Cruzamento_Direita", i, j, false, "+",this);
                         break;
                     case 7:
-                        this.segmentos[i][j] = new Segmento("Cruzamento_Baixo", i, j, false, "+");
+                        this.segmentos[i][j] = new Segmento("Cruzamento_Baixo", i, j, false, "+",this);
                         break;
                     case 8:
-                        this.segmentos[i][j] = new Segmento("Cruzamento_Esquerda", i, j, false, "+");
+                        this.segmentos[i][j] = new Segmento("Cruzamento_Esquerda", i, j, false, "+",this);
                         break;
                     case 9:
-                        this.segmentos[i][j] = new Segmento("Cruzamento_Cima_Direita", i, j, false, "+");
+                        this.segmentos[i][j] = new Segmento("Cruzamento_Cima_Direita", i, j, false, "+",this);
                         break;
                     case 10:
-                        this.segmentos[i][j] = new Segmento("Cruzamento_Cima_Esquerda", i, j, false, "+");
+                        this.segmentos[i][j] = new Segmento("Cruzamento_Cima_Esquerda", i, j, false, "+",this);
                         break;
                     case 11:
-                        this.segmentos[i][j] = new Segmento("Cruzamento_Direita_Baixo", i, j, false, "+");
+                        this.segmentos[i][j] = new Segmento("Cruzamento_Direita_Baixo", i, j, false, "+",this);
                         break;
                     case 12:
-                        this.segmentos[i][j] = new Segmento("Cruzamento_Baixo_Esquerda", i, j, false, "+");
+                        this.segmentos[i][j] = new Segmento("Cruzamento_Baixo_Esquerda", i, j, false, "+",this);
                         break;
                 }
             }

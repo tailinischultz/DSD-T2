@@ -7,7 +7,7 @@ public class SemaforoCarro extends Carro  {
     }
 
     @Override
-    public void setNodoAtual(Segmento nodo) {
+    public void setSegmentoAtual(Segmento nodo) {
 
     }
 }
