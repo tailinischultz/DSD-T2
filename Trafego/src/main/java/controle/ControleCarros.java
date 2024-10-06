@@ -29,23 +29,23 @@ public class ControleCarros extends Thread {
     public void setTempoMiliseg(int tempoMiliseg) {
         this.tempoMiliseg = tempoMiliseg;
     }
-    private void setSegmentoEntradaTopoBaixo() {
-        Segmento[][] matrizSegmentos = this.malha.getListaSegmentos();
-        for (int idxColuna = 0; idxColuna < matrizSegmentos[0].length; idxColuna++) {
-            Segmento segmentoAtualTopo = matrizSegmentos[0][idxColuna];
-            Segmento segmentoAtualBaixo = matrizSegmentos[matrizSegmentos.length - 1][idxColuna];
-        }
-    }
-
-    private void setNodosEntradaDireitaEsquerda() {
-        Segmento[][] matrizSegmentos = this.malha.getListaSegmentos();
-        int colunaBordaDireita = (matrizSegmentos[0].length - 1);
-        for (int idxLinha = 0; idxLinha < matrizSegmentos.length; idxLinha++) {
-            Segmento segmentoAtualDireita = matrizSegmentos[idxLinha][colunaBordaDireita];
-            Segmento segmentoAtualEsquerda = matrizSegmentos[idxLinha][0];
-
-        }
-    }
+//    private void setSegmentoEntradaTopoBaixo() {
+//        Segmento[][] matrizSegmentos = this.malha.getListaSegmentos();
+//        for (int idxColuna = 0; idxColuna < matrizSegmentos[0].length; idxColuna++) {
+//            Segmento segmentoAtualTopo = matrizSegmentos[0][idxColuna];
+//            Segmento segmentoAtualBaixo = matrizSegmentos[matrizSegmentos.length - 1][idxColuna];
+//        }
+//    }
+//
+//    private void setNodosEntradaDireitaEsquerda() {
+//        Segmento[][] matrizSegmentos = this.malha.getListaSegmentos();
+//        int colunaBordaDireita = (matrizSegmentos[0].length - 1);
+//        for (int idxLinha = 0; idxLinha < matrizSegmentos.length; idxLinha++) {
+//            Segmento segmentoAtualDireita = matrizSegmentos[idxLinha][colunaBordaDireita];
+//            Segmento segmentoAtualEsquerda = matrizSegmentos[idxLinha][0];
+//
+//        }
+//    }
 
     @Override
     public void run() {
