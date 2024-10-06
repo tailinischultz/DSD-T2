@@ -1,8 +1,6 @@
 package controle;
 
-import modelo.Carro;
-import modelo.MalhaViaria;
-import modelo.Segmento;
+import modelo.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -60,36 +58,38 @@ public class ControleCarros extends Thread {
 
         while (this.executando) {
 
-            if (idxListNodosEntrada > this.listNodosEntrada.size() -1) {
+            if (idxListNodosEntrada > (malha.getSegmentosEntrada().size()-1)) {
                 idxListNodosEntrada = 0;
             }
 
-            segmento = this.listNodosEntrada.get(idxListNodosEntrada);
+            segmento = malha.getSegmentosEntrada().get(idxListNodosEntrada);
 
             if (segmento.getCarro() != null) {
                 idxListNodosEntrada++;
-                if (idxListNodosEntrada == this.listNodosEntrada.size() - 1) {
+                if (idxListNodosEntrada == malha.getSegmentosEntrada().size() - 1) {
                     idxListNodosEntrada = 0;
                 }
                 continue;
             }
-            if (usaSemaforo) {
-                carro = new CarroSemaforo(this.getIdCarro(random.nextInt(26)), this.semaforoMaster);
-            }
-            else {
-                carro = new CarroMonitor(this.getIdCarro(random.nextInt(26)));
-            }
+//            if (usaSemaforo) {
+//                //carro = new SemaforoCarro(this.getIdCarro(random.nextInt(26)), this.semaforoMaster);
+//            }
+//            else {
+//                carro = new MonitorCarro(this.getIdCarro(random.nextInt(26)));
+//            }
+            carro = new MonitorCarro(this.getIdCarro(random.nextInt(26)));
+
             segmento.setCarro(carro);
-            carro.setNodoAtual(segmento);
+            carro.setSegmentoAtual(segmento);
             carro.start();
 
             if (validaQtdCarros) {
                 contCarros++;
                 if (contCarros >= this.qtdTotalCarros) {
-                    this.emExecucao = false;
+                    this.executando = false;
                 }
             }
-            if (idxListNodosEntrada == this.listNodosEntrada.size() - 1) {
+            if (idxListNodosEntrada == malha.getSegmentosEntrada().size() - 1) {
                 idxListNodosEntrada = 0;
             }
             else {

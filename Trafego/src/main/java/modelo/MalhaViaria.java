@@ -121,6 +121,14 @@ public class MalhaViaria {
         return this.segmentos;
     }
 
+    public List<Segmento> getSegmentosEntrada() {
+        return segmentosEntrada;
+    }
+
+    public void setSegmentosEntrada(List<Segmento> segmentosEntrada) {
+        this.segmentosEntrada = segmentosEntrada;
+    }
+
     public void paraExecucao() {
         this.emExecucao = false;
     }
