@@ -1,7 +1,5 @@
 package modelo;
 
-import javax.swing.text.Segment;
-
 public class MonitorCarro extends Carro {
 
     private String nomeCarro;
@@ -32,7 +30,7 @@ public class MonitorCarro extends Carro {
     public void setSegmentoAtual(Segmento segmentoAtual) {
         this.segmentoAtual=segmentoAtual;
     }
-    private synchronized void andarUmSegmentoNormal(Segmento segmentoAIr){
+    private synchronized void andarUmSegmento(Segmento segmentoAIr){
         if(segmentoAIr.getCarro()!=null){
             return;
         }else 
@@ -145,7 +143,7 @@ public class MonitorCarro extends Carro {
         if (segmentoAIr.isCruzamento()) {
             this.emCruzamento = true;
         }else if (segmentoAIr.getCarro() == null) {
-            this.andarUmSegmentoNormal(segmentoAIr);
+            this.andarUmSegmento(segmentoAIr);
         }
     }
     
