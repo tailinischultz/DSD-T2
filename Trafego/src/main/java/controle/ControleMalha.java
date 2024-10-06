@@ -23,13 +23,12 @@ public class ControleMalha extends Thread {
     @Override
     public void run() {
         String malhaPrint = "";
-        Segmento[][] malhaVi = this.malhaViaria.getListaSegmentos();
         while (this.emExecucao) {
             malhaPrint = "";
-            for (int i = 0; i < malhaVi.length; i++) {
-                for (int j = 0; j < malhaVi[i].length; j++) {
-                    Segmento segmento = malhaVi[i][j];
-                    if (segmento == null) {
+            for (int i = 0; i < this.malhaViaria.getListaSegmentos().length; i++) {
+                for (int j = 0; j < this.malhaViaria.getListaSegmentos()[0].length; j++) {
+                    Segmento segmento = this.malhaViaria.getListaSegmentos()[i][j];
+                    if (segmento.getDirecao() == null) {
                         malhaPrint += "  ";
                     }
                     else {
