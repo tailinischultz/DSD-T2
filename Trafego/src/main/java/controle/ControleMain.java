@@ -9,6 +9,7 @@ public class ControleMain {
     private Tela view;
     private MalhaViaria malhaViaria;
     ControleMalha desenharMalhaViaria;
+    private ControleCarros adicionadorCarros;
 
     public void setView(Tela view) {
         this.view = view;
@@ -20,6 +21,11 @@ public class ControleMain {
     }
 
     public void iniciarMonitor(int tempo, int numCarros){
+        ControleCarros addCarro = new ControleCarros(this.malhaViaria, false);
+        addCarro.setTempoMiliseg(tempo);
+        addCarro.setQtdTotalCarros(numCarros);
+        this.adicionadorCarros = addCarro;
+        addCarro.start();
         ControleMalha desenharMalhaViaria = new ControleMalha(this.malhaViaria, this.view.getTextArea());
         desenharMalhaViaria.start();
     }

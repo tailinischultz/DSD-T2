@@ -16,7 +16,14 @@ public class ControleCarros extends Thread {
     private Semaphore semaforoMaster;
     private boolean usaSemaforo;
 
-
+    public ControleCarros(MalhaViaria malha, boolean usaSemaforo) {
+        this.executando = true;
+        this.malha = malha;
+        this.tempoMiliseg = 500;
+        this.listSegmentosEntrada = new ArrayList<Segmento>();
+        this.semaforoMaster = new Semaphore(1);
+        this.usaSemaforo = usaSemaforo;
+    }
     private String getIdCarro(int numChar) {
         char id = (char) (65 + numChar);
         return id + "";

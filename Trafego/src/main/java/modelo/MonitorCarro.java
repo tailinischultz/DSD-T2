@@ -12,7 +12,7 @@ public class MonitorCarro extends Carro {
     public MonitorCarro(String nomeCarro) {
         this.nomeCarro = nomeCarro;
         this.emCruzamento = false;
-        this.caminhoACruzar = new Segmento[0];
+        this.caminhoACruzar = new Segmento[4];
     }
 
     public String getNomeCarro() {
