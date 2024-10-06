@@ -24,7 +24,7 @@ public class MonitorCarro extends Carro {
     }
     @Override
     public String getNome() {
-        return "";
+        return "🚘";
     }
     @Override
     public void setSegmentoAtual(Segmento segmentoAtual) {
