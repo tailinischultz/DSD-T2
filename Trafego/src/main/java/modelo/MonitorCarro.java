@@ -80,10 +80,6 @@ public class MonitorCarro extends Carro {
         Segmento proximoSegmento = malhaViaria.getNodo(segmentoDeReferencia.getIdxLinha()+1, segmentoDeReferencia.getIdxColuna());
         return proximoSegmento;
     }
-    private void SairDaMalhaViaria() {
-        this.segmentoAtual.setCarro(null);
-    }
-
     private Segmento getProxNodoNormal() {
         Segmento proximoSegmento = null;
         Segmento a = null;
@@ -153,6 +149,20 @@ public class MonitorCarro extends Carro {
                 this.andarUmSegmentoNormal(segmentoAIr);
             }
 
+    }
+    private void SairMalhaViaria() {
+        this.segmentoAtual.setCarro(null);
+    }
+    private boolean pararExecucao() {
+        if (!this.segmentoAtual.getMalhaViaria().estaEmExecucao()) {
+            return true;
+        }
+
+        if (this.segmentoAtual.isSaida()) {
+            this.SairMalhaViaria();
+            return true;
+        }
+        return false;
     }
     @Override
     public void run() {
