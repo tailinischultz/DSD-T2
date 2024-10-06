@@ -7,13 +7,14 @@ public class Segmento {
     private Carro reserva;
     private String direcao;
     private boolean saida;
+    private boolean entrada;
     private int idxLinha;
     private int idxColuna;
     private String caracter;
     private MalhaViaria malhaViaria;
 
 
-    public Segmento(String direcao, int idxLinha, int idxColuna, boolean saida, String caracter,MalhaViaria malhaViaria) {
+    public Segmento(String direcao, int idxLinha, int idxColuna, boolean saida, boolean entrada, String caracter,MalhaViaria malhaViaria) {
         this.direcao = direcao;
         this.idxLinha = idxLinha;
         this.idxColuna = idxColuna;
