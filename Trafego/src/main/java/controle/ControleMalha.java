@@ -29,7 +29,7 @@ public class ControleMalha extends Thread {
                 for (int j = 0; j < this.malhaViaria.getListaSegmentos()[0].length; j++) {
                     Segmento segmento = this.malhaViaria.getListaSegmentos()[i][j];
                     if (segmento.getDirecao() == null) {
-                        malhaPrint += "  ";
+                        malhaPrint += segmento.getCaracter() + " ";
                     }
                     else {
                         malhaPrint += (segmento.getCarro() != null ? segmento.getCarro().getNome() : segmento.getCaracter());
