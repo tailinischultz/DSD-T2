@@ -26,7 +26,7 @@ public class ControleMain {
         addCarro.setQtdTotalCarros(numCarros);
         this.adicionadorCarros = addCarro;
         addCarro.start();
-        ControleMalha desenharMalhaViaria = new ControleMalha(this.malhaViaria, this.view.getTextArea());
+        this.desenharMalhaViaria = new ControleMalha(this.malhaViaria, this.view.getTextArea());
         desenharMalhaViaria.start();
     }
 
