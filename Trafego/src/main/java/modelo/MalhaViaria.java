@@ -4,10 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MalhaViaria {
 
     private Segmento[][] segmentos;
+    private List<Segmento> segmentosEntrada;
 
     private boolean emExecucao;
     
@@ -36,6 +39,7 @@ public class MalhaViaria {
     public Segmento[][] identificarSegmentos(int [][] matrizLida){
         
         this.segmentos = new Segmento[matrizLida.length][matrizLida[0].length];
+        this.segmentosEntrada = new ArrayList();
         for (int i = 0; i < matrizLida.length; i++){
             for (int j = 0; j < matrizLida[0].length; j++){    
                 switch (matrizLida[i][j]) {
@@ -48,6 +52,7 @@ public class MalhaViaria {
                             break;
                         }else if(i == matrizLida.length - 1){
                             this.segmentos[i][j] = new Segmento("Estrada_Cima", i, j, false, true, "|",this);
+                            this.segmentosEntrada.add(this.segmentos[i][j]);
                         }else{
                             this.segmentos[i][j] = new Segmento("Estrada_Cima", i, j, false, false, "|",this);
                             break;
@@ -58,6 +63,7 @@ public class MalhaViaria {
                             break; 
                         }else if(j == 0){
                             this.segmentos[i][j] = new Segmento("Estrada_Direita", i, j, false, true, "-",this);
+                            this.segmentosEntrada.add(this.segmentos[i][j]);
                         }else{
                             this.segmentos[i][j] = new Segmento("Estrada_Direita", i, j, false, false, "-",this);
                             break;                            
@@ -68,6 +74,7 @@ public class MalhaViaria {
                             break;
                         }else if (i == 0){
                             this.segmentos[i][j] = new Segmento("Estrada_Baixo", i, j, false, true, "|",this);
+                            this.segmentosEntrada.add(this.segmentos[i][j]);
                         }else{
                             this.segmentos[i][j] = new Segmento("Estrada_Baixo", i, j, false, false, "|",this);
                             break;
@@ -78,6 +85,7 @@ public class MalhaViaria {
                             break;
                         }else if(j == matrizLida[0].length - 1){
                             this.segmentos[i][j] = new Segmento("Estrada_Esquerda", i, j, false, true, "-",this);
+                            this.segmentosEntrada.add(this.segmentos[i][j]);
                         }else{
                             this.segmentos[i][j] = new Segmento("Estrada_Esquerda", i, j, false, false, "-",this);
                             break;

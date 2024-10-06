@@ -2,7 +2,6 @@ package controle;
 
 import java.io.IOException;
 import modelo.MalhaViaria;
-import modelo.Segmento;
 import visao.Tela;
 
 public class ControleMain {
