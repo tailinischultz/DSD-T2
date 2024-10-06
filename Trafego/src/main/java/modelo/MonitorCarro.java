@@ -140,16 +140,15 @@ public class MonitorCarro extends Carro {
         }
         return proximoSegmento;
     }
+    
     private void andarUmaCasaNormal(Segmento segmentoAIr) {
-//        if (segmentoAIr.isCruzamento()) {
-//            this.emCruzamento = true;
-//        }
-//        else {
-            if (segmentoAIr.getCarro() == null) {
-                this.andarUmSegmentoNormal(segmentoAIr);
-            }
-
+        if (segmentoAIr.isCruzamento()) {
+            this.emCruzamento = true;
+        }else if (segmentoAIr.getCarro() == null) {
+            this.andarUmSegmentoNormal(segmentoAIr);
+        }
     }
+    
     private void SairMalhaViaria() {
         this.segmentoAtual.setCarro(null);
     }
