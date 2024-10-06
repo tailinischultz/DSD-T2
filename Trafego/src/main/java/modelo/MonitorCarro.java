@@ -163,16 +163,45 @@ public class MonitorCarro extends Carro {
         }
         return false;
     }
+    private void esperar() {
+        try {
+            this.sleep(500);
+        }
+        catch (Exception e) {
+        }
+    }
     
     @Override
     public void run() {
-        Segmento proximoNodo = null;
+        Segmento proximoSegmento = null;
         while (true) {
             if (this.pararExecucao()) {
                 break;
             }
-                proximoNodo = this.getProxNodoNormal();
-                this.andarUmaCasaNormal(proximoNodo);
+            if (this.emCruzamento) {
+                //if (this.temCaminhoDefinido()) {
+                //if (this.temCaminhoReservado()) {
+                //    this.trataAndarCruzamento();
+                //}
+                //else {
+                //    this.tentaReservarCaminhoCruzamento();
+                //    if (this.temCaminhoReservado()) {
+                //        this.trataAndarCruzamento();
+                //    }
+                // }
+                //}
+                // else {
+                //     this.escolherCaminhoCruzamento(proximoNodo);
+                //     this.tentaReservarCaminhoCruzamento();
+                //    if (this.temCaminhoReservado()) {
+                // this.trataAndarCruzamento();
+                // }
+                // }
+            } else {
+                proximoSegmento = this.getProxNodoNormal();
+                this.andarUmaCasaNormal(proximoSegmento);
+            }
+            this.esperar();
         }
     }
 }
