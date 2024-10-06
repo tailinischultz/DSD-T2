@@ -113,7 +113,7 @@ public class MalhaViaria {
                         this.segmentos[i][j] = new Segmento("Cruzamento_Cima_Esquerda", i, j, false,false, "+",this);
                         break;
                     case 11:
-                        this.segmentos[i][j] = new Segmento("Cruzamento_Direita_Baixo", i, j, false,false, "+",this);
+                        this.segmentos[i][j] = new Segmento("Cruzamento_Baixo_Direita", i, j, false,false, "+",this);
                         break;
                     case 12:
                         this.segmentos[i][j] = new Segmento("Cruzamento_Baixo_Esquerda", i, j, false, false, "+",this);

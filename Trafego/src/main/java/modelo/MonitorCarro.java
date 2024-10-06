@@ -184,7 +184,7 @@ public class MonitorCarro extends Carro {
                     proximoSegmento = this.getProximoSegmentoEsquerda(segmentoDeReferencia);
                 }
                 break;
-            case "Cruzamento_baixo_Direita":
+            case "Cruzamento_Baixo_Direita":
                 a = this.getProximoSegmentoBaixo(segmentoDeReferencia);
                 b = this.getProximoSegmentoDireita(segmentoDeReferencia);
                 if (forcaSairCruzamento) {
