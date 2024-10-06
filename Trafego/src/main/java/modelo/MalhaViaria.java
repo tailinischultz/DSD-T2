@@ -47,7 +47,7 @@ public class MalhaViaria {
             for (int j = 0; j < matrizLida[0].length; j++){    
                 switch (matrizLida[i][j]) {
                     case 0: 
-                        this.segmentos[i][j] = new Segmento(null, i, j, false, false, "",this);
+                        this.segmentos[i][j] = new Segmento(null, i, j, false, false, " ",this);
                         break;
                     case 1:
                         if (i == 0){
