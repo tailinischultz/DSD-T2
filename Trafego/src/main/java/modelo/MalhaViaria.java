@@ -53,6 +53,7 @@ public class MalhaViaria {
                         }else if(i == matrizLida.length - 1){
                             this.segmentos[i][j] = new Segmento("Estrada_Cima", i, j, false, true, "|",this);
                             this.segmentosEntrada.add(this.segmentos[i][j]);
+                            break;
                         }else{
                             this.segmentos[i][j] = new Segmento("Estrada_Cima", i, j, false, false, "|",this);
                             break;
@@ -64,6 +65,7 @@ public class MalhaViaria {
                         }else if(j == 0){
                             this.segmentos[i][j] = new Segmento("Estrada_Direita", i, j, false, true, "-",this);
                             this.segmentosEntrada.add(this.segmentos[i][j]);
+                            break;
                         }else{
                             this.segmentos[i][j] = new Segmento("Estrada_Direita", i, j, false, false, "-",this);
                             break;                            
@@ -75,6 +77,7 @@ public class MalhaViaria {
                         }else if (i == 0){
                             this.segmentos[i][j] = new Segmento("Estrada_Baixo", i, j, false, true, "|",this);
                             this.segmentosEntrada.add(this.segmentos[i][j]);
+                            break;
                         }else{
                             this.segmentos[i][j] = new Segmento("Estrada_Baixo", i, j, false, false, "|",this);
                             break;
@@ -86,6 +89,7 @@ public class MalhaViaria {
                         }else if(j == matrizLida[0].length - 1){
                             this.segmentos[i][j] = new Segmento("Estrada_Esquerda", i, j, false, true, "-",this);
                             this.segmentosEntrada.add(this.segmentos[i][j]);
+                            break;
                         }else{
                             this.segmentos[i][j] = new Segmento("Estrada_Esquerda", i, j, false, false, "-",this);
                             break;
