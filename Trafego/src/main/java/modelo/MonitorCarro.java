@@ -83,22 +83,22 @@ public class MonitorCarro extends Carro {
         Segmento a = null;
         Segmento b = null;
         switch (this.segmentoAtual.getDirecao()) {
-            case "Cima":
+            case "Estrada_Cima":
                 proximoSegmento = this.getProximoSegmentoCima();
                 break;
-            case "Direita":
+            case "Estrada_Direita":
                 proximoSegmento = this.getProximoSegmentoDireita();
                 break;
-            case "Baixo":
+            case "Estrada_Baixo":
                 proximoSegmento = this.getProximoSegmentoBaixo();
                 break;
-            case "Esquerda":
+            case "Estrada_Esquerda":
                 proximoSegmento = this.getProximoSegmentoEsquerda();
                 break;
             case "Cruzamento_Cima":
                 proximoSegmento = this.getProximoSegmentoCima();
                 break;
-            case "Cruzamento-Direita":
+            case "Cruzamento_Direita":
                 proximoSegmento = this.getProximoSegmentoDireita();
                 break;
             case "Cruzamento_Baixo":
