@@ -163,14 +163,16 @@ public class MonitorCarro extends Carro {
         }
         return false;
     }
+    
     @Override
     public void run() {
-       Segmento proximoSegmento = null;
+        Segmento proximoNodo = null;
         while (true) {
-
-                proximoSegmento = this.getProxNodoNormal();
-                this.andarUmaCasaNormal(proximoSegmento);
-
+            if (this.pararExecucao()) {
+                break;
+            }
+                proximoNodo = this.getProxNodoNormal();
+                this.andarUmaCasaNormal(proximoNodo);
         }
     }
 }

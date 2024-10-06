@@ -92,16 +92,14 @@ public class Segmento {
     }
     
     public boolean isCruzamento() {
-        return this.direcao == "Cruzamento_Cima"           ||
-                this.direcao == "Cruzamento_Baixo"          ||
-                this.direcao == "Cruzamento_Direita"        ||
-                this.direcao == "Cruzamento_Esquerda"       ||
-                this.direcao == "Cruzamento_Baixo_Direita" ||
-                this.direcao == "Cruzamento_Baixo_Esquerda" ||
-                this.direcao == "Cruzamento_Cima_Direta"   ||
-                this.direcao == "Cruzamento_Cima_Esquerda";
+        return "Cruzamento_Baixo_Esquerda".equals(this.direcao)
+                || "Cruzamento_Cima".equals(this.direcao)
+                || "Cruzamento_Baixo".equals(this.direcao)
+                || "Cruzamento_Direita".equals(this.direcao)
+                || "Cruzamento_Esquerda".equals(this.direcao)
+                || "Cruzamento_Baixo_Direita".equals(this.direcao)
+                || "Cruzamento_Cima_Direta".equals(this.direcao)
+                || "Cruzamento_Cima_Esquerda".equals(this.direcao);
     }
-
-
 }
 
