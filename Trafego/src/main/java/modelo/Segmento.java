@@ -21,6 +21,7 @@ public class Segmento {
         this.saida = saida;
         this.caracter = caracter;
         this.malhaViaria = malhaViaria;
+        this.entrada = entrada;
     }
    
     public Carro getCarro() {
@@ -81,7 +82,14 @@ public class Segmento {
     public void setCaracter(String caracter) {
         this.caracter = caracter;
     }
-    
+
+    public boolean isEntrada() {
+        return entrada;
+    }
+
+    public void setEntrada(boolean entrada) {
+        this.entrada = entrada;
+    }
     
     public boolean isCruzamento() {
         return this.direcao == "Cruzamento_Cima"           ||
