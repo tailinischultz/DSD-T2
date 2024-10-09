@@ -4,30 +4,19 @@ import java.util.Random;
 
 public class MonitorCarro extends Carro {
 
-    private String nomeCarro;
     private Segmento segmentoAtual;
     private boolean emCruzamento;
     private Segmento[] caminhoACruzar;
 
-    public MonitorCarro(String nomeCarro) {
-        this.nomeCarro = nomeCarro;
+    public MonitorCarro() {
         this.emCruzamento = false;
         this.caminhoACruzar = new Segmento[4];
     }
 
-    public String getNomeCarro() {
-        return nomeCarro;
-    }
-    public void setNomeCarro(String nomeCarro) {
-        this.nomeCarro = nomeCarro;
-    }
     public Segmento getSegmentoAtual() {
         return segmentoAtual;
     }
-    @Override
-    public String getNome() {
-        return "🚘";
-    }
+
     @Override
     public void setSegmentoAtual(Segmento segmentoAtual) {
         this.segmentoAtual=segmentoAtual;

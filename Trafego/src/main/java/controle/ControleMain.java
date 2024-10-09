@@ -9,7 +9,7 @@ public class ControleMain {
     private Tela view;
     private MalhaViaria malhaViaria;
     ControleMalha desenharMalhaViaria;
-    private ControleCarros adicionadorCarros;
+    private ControleCarros adicionarCarros;
 
     public void setView(Tela view) {
         this.view = view;
@@ -17,25 +17,25 @@ public class ControleMain {
     }
 
     public void criarMalhaViaria(String path) throws IOException{
-        this.malhaViaria.identificarSegmentos( this.malhaViaria.lerDocumento(path));
+        this.malhaViaria.lerDocumento(path);
     }
 
     public void iniciarMonitor(int tempo, int numCarros){
-        ControleCarros addCarro = new ControleCarros(this.malhaViaria, false);
-        addCarro.setTempoMiliseg(tempo);
-        addCarro.setQtdTotalCarros(numCarros);
-        this.adicionadorCarros = addCarro;
-        addCarro.start();
         this.desenharMalhaViaria = new ControleMalha(this.malhaViaria, this.view.getTextArea());
         desenharMalhaViaria.start();
+        this.adicionarCarros = new ControleCarros(this.malhaViaria, false, tempo, numCarros);
+        adicionarCarros.start();
     }
 
     public void iniciarSemaforo(int tempo, int numCarros){
         this.desenharMalhaViaria = new ControleMalha(this.malhaViaria, this.view.getTextArea());
         desenharMalhaViaria.start();
+        this.adicionarCarros = new ControleCarros(this.malhaViaria, true, tempo, numCarros);
+        adicionarCarros.start();
     }
 
     public void aguardar(){
+        
     }
 
     public void encerrar(){

@@ -14,7 +14,6 @@ public class Tela extends javax.swing.JFrame {
 
     private ControleMain controle;
 
-
     public Tela() {
         initComponents();
         this.setEstiloComponentes();
@@ -236,7 +235,7 @@ public class Tela extends javax.swing.JFrame {
 
     private void jButtonIniciarMonitorActionPerformed(java.awt.event.ActionEvent evt) {
         if (this.jTextFieldIntervaloInsercao.getText().equals("") || this.jTextFieldQtdCarros.getText().equals("") ) {
-            JOptionPane.showMessageDialog(null,"Aconteceu um erro! Na próxima preencha o tempo e a quantidade de carros antes de iniciar!", "Alerta", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Preencha o tempo e a quantidade de carros antes de iniciar!", "Alerta", JOptionPane.ERROR_MESSAGE);
         }else{
         this.btnMonitor.setEnabled(false);
         this.btnMalha.setEnabled(false);
@@ -253,7 +252,7 @@ public class Tela extends javax.swing.JFrame {
 
     private void jButtonIniciarSemaforoActionPerformed(java.awt.event.ActionEvent evt) {
         if (this.jTextFieldIntervaloInsercao.getText().equals("") || this.jTextFieldQtdCarros.getText().equals("") ) {
-            JOptionPane.showMessageDialog(null,"Aconteceu um erro! Na próxima preencha o tempo e a quantidade de carros antes de iniciar!", "Alerta", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Preencha o tempo e a quantidade de carros antes de iniciar!", "Alerta", JOptionPane.ERROR_MESSAGE);
         }else{
             this.btnMonitor.setEnabled(false);
             this.btnMalha.setEnabled(false);
@@ -294,7 +293,6 @@ public class Tela extends javax.swing.JFrame {
             }
         });
     }
-
 
     private javax.swing.JButton btnAguardar;
     private javax.swing.JButton btnEncerrar;
