@@ -124,6 +124,22 @@ public class MalhaViaria {
 
         return this.segmentos;
     }
+    
+    public Segmento getProxSegmentoBaixo(Segmento segmento) {
+        return this.getNodo(segmento.getIdxLinha() + 1, segmento.getIdxColuna());
+    }
+
+    public Segmento getProxSegmentoCima(Segmento segmento) {
+        return this.getNodo(segmento.getIdxLinha() - 1, segmento.getIdxColuna());
+    }
+
+    public Segmento getProxSegmentoDireita(Segmento segmento) {
+        return this.getNodo(segmento.getIdxLinha(), segmento.getIdxColuna() + 1);
+    }
+
+    public Segmento getProxSegmentoEsquerda(Segmento segmento) {
+        return this.getNodo(segmento.getIdxLinha(), segmento.getIdxColuna() - 1);
+    }
 
     public List<Segmento> getSegmentosEntrada() {
         return segmentosEntrada;

@@ -35,10 +35,12 @@ public class ControleMain {
     }
 
     public void aguardar(){
-        
+        this.adicionarCarros.setExecutando(false);
     }
 
     public void encerrar(){
         desenharMalhaViaria.setEmExecucao(false);
+        this.malhaViaria.paraExecucao();
+        this.adicionarCarros.setExecutando(false);
     }
 }

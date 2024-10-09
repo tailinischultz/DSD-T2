@@ -2,8 +2,6 @@ package controle;
 
 import modelo.*;
 
-import java.util.Random;
-
 public class ControleCarros extends Thread {
 
     private boolean executando;
@@ -19,66 +17,51 @@ public class ControleCarros extends Thread {
         this.qtdCarros = qtdCarros;
         this.usaSemaforo = usaSemaforo;
     }
-    private String getIdCarro(int numChar) {
-        char id = (char) (65 + numChar);
-        return id + "";
+
+    public void setExecutando(boolean executando) {
+        this.executando = executando;
     }
 
     @Override
     public void run() {
-        Random random = new Random();
-        boolean validaQtdCarros = this.qtdCarros > 0;
         int contCarros = 0;
         int idxListNodosEntrada = 0;
         Carro carro;
         Segmento segmento;
 
         while (this.executando) {
-
-            if (idxListNodosEntrada > (malha.getSegmentosEntrada().size()-1)) {
-                idxListNodosEntrada = 0;
-            }
-
+            
             segmento = malha.getSegmentosEntrada().get(idxListNodosEntrada);
+            idxListNodosEntrada++;
 
-            if (segmento.getCarro() != null) {
-                idxListNodosEntrada++;
-                if (idxListNodosEntrada == malha.getSegmentosEntrada().size() - 1) {
-                    idxListNodosEntrada = 0;
+            if (segmento.getCarro() == null) {
+
+                if (usaSemaforo) {
+                    carro = new SemaforoCarro(this.malha);
+                } else {
+                    carro = new MonitorCarro();
                 }
-                continue;
-            }
-            if (usaSemaforo) {
-                carro = new SemaforoCarro();
-            }
-            else {
-                carro = new MonitorCarro();
-            }
 
-            segmento.setCarro(carro);
-            carro.setSegmentoAtual(segmento);
-            carro.start();
+                segmento.setCarro(carro);
+                carro.setSegmentoAtual(segmento);
+                carro.start();
 
-            if (validaQtdCarros) {
                 contCarros++;
                 if (contCarros >= this.qtdCarros) {
                     this.executando = false;
                 }
             }
-            if (idxListNodosEntrada == malha.getSegmentosEntrada().size() - 1) {
+            
+            if (idxListNodosEntrada >= malha.getSegmentosEntrada().size() - 1) {
                 idxListNodosEntrada = 0;
             }
-            else {
-                idxListNodosEntrada++;
-            }
-
+            
             try {
-                this.sleep(this.tempo);
+                ControleCarros.sleep(this.tempo);
+            } catch (InterruptedException ex) {
             }
-            catch (InterruptedException ex) {}
         }
 
     }
-
 
 }

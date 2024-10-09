@@ -13,7 +13,6 @@ public class Segmento {
     private String caracter;
     private MalhaViaria malhaViaria;
 
-
     public Segmento(String direcao, int idxLinha, int idxColuna, boolean saida, boolean entrada, String caracter,MalhaViaria malhaViaria) {
         this.direcao = direcao;
         this.idxLinha = idxLinha;
