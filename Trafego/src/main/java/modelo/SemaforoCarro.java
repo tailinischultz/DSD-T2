@@ -1,228 +1,46 @@
 package modelo;
 
-import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 public class SemaforoCarro extends Carro {
 
-    private Segmento segmentoAtual;
-    private boolean emCruzamento;
-    private Segmento[] caminhoCruzamento;
     private final Semaphore semaforo;
-    private MalhaViaria malhaViaria;
 
     public SemaforoCarro(MalhaViaria malhaViaria) {
-        this.emCruzamento = false;
-        this.caminhoCruzamento = new Segmento[4];
+        super.setEmCruzamento(false);
+        super.setCaminhoCruzamento(new Segmento[4]);
         this.semaforo = new Semaphore(1);
-        this.malhaViaria = malhaViaria;
+        super.setMalhaViaria(malhaViaria);
     }
 
-    @Override
-    public void setSegmentoAtual(Segmento segmento) {
-        this.segmentoAtual = segmento;
-    }
-    
-    public Segmento getNodoAtual() {
-        return segmentoAtual;
-    }
-
-    public void setNodoAtual(Segmento segmentoAtual) {
-        this.segmentoAtual = segmentoAtual;
-    }
-
-    private void andar(Segmento segmentoDestino) {
+    private void andar(Segmento proxSegmento) {
         try {
             this.semaforo.acquire();
         } catch (InterruptedException ex) {
             System.out.println("Thread interrompida. Abortando método run()");
         }
-        if (segmentoDestino.getCarro() != null) {
+        if (proxSegmento.getCarro() != null) {
             this.semaforo.release();
         } else {
-            this.segmentoAtual.setCarro(null);
-            this.segmentoAtual = segmentoDestino;
-            this.segmentoAtual.setCarro(this);
+            super.getSegmentoAtual().setCarro(null);
+            super.setSegmentoAtual(proxSegmento);
+            super.getSegmentoAtual().setCarro(this);
             this.semaforo.release();
         }
     }
 
-    private Segmento getProxSegmento() {
-        Segmento proximoNodo = null;
-        Segmento a;
-        Segmento b;
-        switch (this.segmentoAtual.getDirecao()) {
-            case "Estrada_Cima":
-                return this.malhaViaria.getProxSegmentoCima(this.segmentoAtual);
-            case "Estrada_Direita":
-                return this.malhaViaria.getProxSegmentoDireita(this.segmentoAtual);
-            case "Estrada_Baixo":
-                return this.malhaViaria.getProxSegmentoBaixo(this.segmentoAtual);
-            case "Estrada_Esquerda":
-                return this.malhaViaria.getProxSegmentoEsquerda(this.segmentoAtual);
-            case "Cruzamento_Cima":
-                return this.malhaViaria.getProxSegmentoCima(this.segmentoAtual);
-            case "Cruzamento_Direita":
-                return this.malhaViaria.getProxSegmentoDireita(this.segmentoAtual);
-            case "Cruzamento_Baixo":
-                return this.malhaViaria.getProxSegmentoBaixo(this.segmentoAtual);
-            case "Cruzamento_Esquerda":
-                return this.malhaViaria.getProxSegmentoEsquerda(this.segmentoAtual);
-            case "Cruzamento_Baixo_Direita":
-                a = this.malhaViaria.getProxSegmentoBaixo(this.segmentoAtual);
-                b = this.malhaViaria.getProxSegmentoDireita(this.segmentoAtual);
-                return proximoNodo = a.isCruzamento() ? b : a;
-            case "Cruzamento_Baixo_Esquerda":
-                a = this.malhaViaria.getProxSegmentoBaixo(this.segmentoAtual);
-                b = this.malhaViaria.getProxSegmentoEsquerda(this.segmentoAtual);
-                return proximoNodo = a.isCruzamento() ? b : a;
-            case "Cruzamento_Cima_Direita":
-                a = this.malhaViaria.getProxSegmentoCima(this.segmentoAtual);
-                b = this.malhaViaria.getProxSegmentoDireita(this.segmentoAtual);
-                return proximoNodo = a.isCruzamento() ? b : a;
-            case "Cruzamento_Cima_Esquerda":
-                a = this.malhaViaria.getProxSegmentoCima(this.segmentoAtual);
-                b = this.malhaViaria.getProxSegmentoEsquerda(this.segmentoAtual);
-                return proximoNodo = a.isCruzamento() ? b : a;
-            default:
-                return null;
-        }
-    }
-
-    private Segmento getProxSegmentoCruzamento(Segmento nodoReferencia, boolean forcaSairCruzamento, Segmento ViagemTemporal, Segmento[] listaInteria, int idxNodoAtual) {
-        Segmento proximoNodo = null;
-        Segmento a = null;
-        Segmento b = null;
-        Random rand = new Random();
-        boolean par = rand.nextInt(500) % 2 == 0;
-
-        switch (nodoReferencia.getDirecao()) {
-            case "Cruzamento_Cima":
-                if (forcaSairCruzamento) {
-                    proximoNodo = this.getProxSegmentoCruzamento(ViagemTemporal, true, null, null, 0);
-                    listaInteria[idxNodoAtual] = null;
-                }
-                else {
-                    proximoNodo = this.malhaViaria.getProxSegmentoCima(nodoReferencia);
-                }
-                break;
-            case "Cruzamento_Direita":
-                if (forcaSairCruzamento) {
-                    proximoNodo = this.getProxSegmentoCruzamento(ViagemTemporal, true, null, null, 0);
-                    listaInteria[idxNodoAtual] = null;
-                }
-                else {
-                    proximoNodo = this.malhaViaria.getProxSegmentoDireita(nodoReferencia);
-                }
-                break;
-            case "Cruzamento_Baixo":
-                if (forcaSairCruzamento) {
-                    proximoNodo = this.getProxSegmentoCruzamento(ViagemTemporal, true, null, null, 0);
-                    listaInteria[idxNodoAtual] = null;
-                }
-                else {
-                    proximoNodo = this.malhaViaria.getProxSegmentoBaixo(nodoReferencia);
-                }
-                break;
-            case "Cruzamento_Esquerda":
-                if (forcaSairCruzamento) {
-                    proximoNodo = this.getProxSegmentoCruzamento(ViagemTemporal, true, null, null, 0);
-                    listaInteria[idxNodoAtual] = null;
-                }
-                else {
-                    proximoNodo = this.malhaViaria.getProxSegmentoEsquerda(nodoReferencia);
-                }
-                break;
-            case "Cruzamento_Baixo_Direita":
-                a = this.malhaViaria.getProxSegmentoBaixo(nodoReferencia);
-                b = this.malhaViaria.getProxSegmentoDireita(nodoReferencia);
-                if (forcaSairCruzamento) {
-                    proximoNodo = a.isCruzamento() ? b : a;
-                }
-                else {
-                    proximoNodo = par ? a : b;
-                }
-                break;
-            case "Cruzamento_Baixo_Esquerda":
-                a = this.malhaViaria.getProxSegmentoBaixo(nodoReferencia);
-                b = this.malhaViaria.getProxSegmentoEsquerda(nodoReferencia);
-                if (forcaSairCruzamento) {
-                    proximoNodo = a.isCruzamento() ? b : a;
-                }
-                else {
-                    proximoNodo = par ? a : b;
-                }
-                break;
-            case "Cruzamento_Cima_Direita":
-                a = this.malhaViaria.getProxSegmentoCima(nodoReferencia);
-                b = this.malhaViaria.getProxSegmentoDireita(nodoReferencia);
-                if (forcaSairCruzamento) {
-                    proximoNodo = a.isCruzamento() ? b : a;
-                }
-                else {
-                    proximoNodo = par ? a : b;
-                }
-                break;
-            case "Cruzamento_Cima_Esquerda":
-                a = this.malhaViaria.getProxSegmentoCima(nodoReferencia);
-                b = this.malhaViaria.getProxSegmentoEsquerda(nodoReferencia);
-                if (forcaSairCruzamento) {
-                    proximoNodo = a.isCruzamento() ? b : a;
-                }
-                else {
-                    proximoNodo = par ? a : b;
-                }
-                break;
-        }
-
-        return proximoNodo;
-    }
-
-    private boolean temCaminhoDefinido() {
-        boolean encontrouCaminho = false;
-        for (Segmento nodo : caminhoCruzamento) {
-            if (nodo != null) {
-                encontrouCaminho = true;
-            }
-        }
-        return encontrouCaminho;
-    }
-
-    private void escolherCaminhoCruzamento(Segmento nodoIniCruzamento) {
-        this.caminhoCruzamento[0] = nodoIniCruzamento;
-        Segmento viagemNoTempo = null;
-        for (int i = 1; i <= 3; i++) {
-            Segmento prox = this.getProxSegmentoCruzamento(this.caminhoCruzamento[(i - 1)], (i == 3), viagemNoTempo, this.caminhoCruzamento, (i - 1));
-            this.caminhoCruzamento[i] = prox;
-            viagemNoTempo = this.caminhoCruzamento[(i - 1)];
-            if (!prox.isCruzamento()) {
-                break;
-            }
-        }
-
-        Segmento[] caminhoCruzamentoAux = new Segmento[4];
-        int contIdxAtual = 0;
-        for (Segmento nodo : caminhoCruzamento) {
-            if (nodo != null) {
-                caminhoCruzamentoAux[contIdxAtual] = nodo;
-                contIdxAtual++;
-            }
-        }
-        this.caminhoCruzamento = caminhoCruzamentoAux;
-    }
-
-    private void tentaReservarCaminhoCruzamento() {
+    private void reservarCaminho() {
         try {
             this.semaforo.acquire();
         }
         catch (InterruptedException ex) {}
         
         boolean livre = true;
-        for (Segmento nodo : caminhoCruzamento) {
-            if (nodo == null) {
+        for (Segmento seg : super.getCaminhoCruzamento()) {
+            if (seg == null) {
                 break;
             }
-            if (nodo.getReserva() != null) {
+            if (seg.getReserva() != null) {
                 livre = false;
                 break;
             }
@@ -233,80 +51,66 @@ public class SemaforoCarro extends Carro {
             return;
         }
 
-        for (Segmento nodo : caminhoCruzamento) {
-            if (nodo == null) {
+        for (Segmento seg : super.getCaminhoCruzamento()) {
+            if (seg == null) {
                 break;
             }
-            nodo.setReserva(this);
+            seg.setReserva(this);
         }
         this.semaforo.release();
     }
 
-    private boolean temCaminhoReservado() {
-        for (Segmento nodo : caminhoCruzamento) {
-            if (nodo != null) {
-                if (nodo.getReserva() == this) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-        }
-        return false;
-    }
-
-    private void trataAndarCruzamento() {
-        for (int i = 0; i < this.caminhoCruzamento.length; i++) {
-            Segmento nodo = this.caminhoCruzamento[i];
+    private void andarNoCruzamento() {
+        for (int i = 0; i < super.getCaminhoCruzamento().length; i++) {
+            Segmento nodo = super.getCaminhoCruzamento()[i];
             if (nodo != null) {
                 this.andar(nodo);
                 nodo.setReserva(null);
-                this.caminhoCruzamento[i] = null;
+                super.getCaminhoCruzamento()[i] = null;
                 break;
             }
         }
         boolean andouTudo = true;
-        for (int i = 0; i < this.caminhoCruzamento.length; i++) {
-            if (this.caminhoCruzamento[i] != null) {
+        for (int i = 0; i < super.getCaminhoCruzamento().length; i++) {
+            if (super.getCaminhoCruzamento()[i] != null) {
                 andouTudo = false;
                 break;
             }
         }
         if (andouTudo) {
-            this.emCruzamento = false;
+            super.setEmCruzamento(false);
         }
     }
 
     @Override
     public void run() {
         Segmento proximoNodo = null;
-        while (this.segmentoAtual.getMalhaViaria().estaEmExecucao() && !this.segmentoAtual.isSaida()) {
+        while (super.getSegmentoAtual().getMalhaViaria().estaEmExecucao() && !super.getSegmentoAtual().isSaida()) {
             
-            if (this.emCruzamento) {
+            if (super.isEmCruzamento()) {
                 
                 if (this.temCaminhoDefinido()) {
                     if (this.temCaminhoReservado()) {
-                        this.trataAndarCruzamento();
+                        this.andarNoCruzamento();
                     } else {
-                        this.tentaReservarCaminhoCruzamento();
+                        this.reservarCaminho();
                         if (this.temCaminhoReservado()) {
-                            this.trataAndarCruzamento();
+                            this.andarNoCruzamento();
                         }
                     }
                 } else {
                     this.escolherCaminhoCruzamento(proximoNodo);
-                    this.tentaReservarCaminhoCruzamento();
+                    this.reservarCaminho();
                     if (this.temCaminhoReservado()) {
-                        this.trataAndarCruzamento();
+                        this.andarNoCruzamento();
                     }
                 }
                 
             } else {
                 
-                proximoNodo = this.getProxSegmento();
+                proximoNodo = super.getProximoSegmento();
                 if (proximoNodo.isCruzamento()) {
-                    this.emCruzamento = true;
+                    super.setEmCruzamento(true);
                 } else {
                     if (proximoNodo.getCarro() == null) {
                         this.andar(proximoNodo);
@@ -323,7 +127,7 @@ public class SemaforoCarro extends Carro {
             
         }
         
-        this.segmentoAtual.setCarro(null);
+        super.getSegmentoAtual().setCarro(null);
     }
 
 }
