@@ -39,7 +39,7 @@ public class ControleCarros extends Thread {
                 if (usaSemaforo) {
                     carro = new SemaforoCarro(this.malha);
                 } else {
-                    carro = new MonitorCarro();
+                    carro = new MonitorCarro(this.malha);
                 }
 
                 segmento.setCarro(carro);
