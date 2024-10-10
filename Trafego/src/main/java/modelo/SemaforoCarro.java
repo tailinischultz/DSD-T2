@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 public class SemaforoCarro extends Carro {
@@ -84,6 +85,7 @@ public class SemaforoCarro extends Carro {
 
     @Override
     public void run() {
+        Random r = new Random();
         Segmento proximoNodo = null;
         while (super.getSegmentoAtual().getMalhaViaria().estaEmExecucao() && !super.getSegmentoAtual().isSaida()) {
             
@@ -121,7 +123,7 @@ public class SemaforoCarro extends Carro {
             
             
             try {
-                SemaforoCarro.sleep(500);
+                SemaforoCarro.sleep(r.nextInt(200,500));
             } catch (InterruptedException e) {
             }
             

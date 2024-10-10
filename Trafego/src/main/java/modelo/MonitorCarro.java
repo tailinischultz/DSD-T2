@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Random;
+
 public class MonitorCarro extends Carro {
 
     public MonitorCarro(MalhaViaria malhaViaria) {
@@ -64,6 +66,7 @@ public class MonitorCarro extends Carro {
     
     @Override
     public void run() {
+        Random r = new Random();
         Segmento proximoSegmento = null;
         while (super.getSegmentoAtual().getMalhaViaria().estaEmExecucao() && !super.getSegmentoAtual().isSaida()) {
             if (super.isEmCruzamento()) {
@@ -94,7 +97,7 @@ public class MonitorCarro extends Carro {
                 }
             }
             try {
-                MonitorCarro.sleep(500);
+                MonitorCarro.sleep(r.nextInt(200,500));
             } catch (InterruptedException e) {
             }
         }
