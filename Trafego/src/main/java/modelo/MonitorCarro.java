@@ -70,7 +70,7 @@ public class MonitorCarro extends Carro {
         Segmento proximoSegmento = null;
         while (super.getSegmentoAtual().getMalhaViaria().estaEmExecucao() && !super.getSegmentoAtual().isSaida()) {
             if (super.isEmCruzamento()) {
-                if (super.temCaminhoDefinido()) {
+                if (super.cruzamentoLivre()) {
                 if (super.temCaminhoReservado()) {
                     this.andarNoCruzamento();
                 }

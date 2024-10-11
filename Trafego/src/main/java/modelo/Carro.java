@@ -152,7 +152,7 @@ public abstract class Carro extends Thread {
         return proximoSegmento;
     }
 
-    public boolean temCaminhoDefinido() {
+    public boolean cruzamentoLivre() {
         boolean encontrouCaminho = false;
         for (Segmento segmento : caminhoCruzamento) {
             if (segmento != null) {

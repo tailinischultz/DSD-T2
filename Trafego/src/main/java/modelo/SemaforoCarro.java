@@ -91,7 +91,7 @@ public class SemaforoCarro extends Carro {
             
             if (super.isEmCruzamento()) {
                 
-                if (this.temCaminhoDefinido()) {
+                if (this.cruzamentoLivre()) {
                     if (this.temCaminhoReservado()) {
                         this.andarNoCruzamento();
                     } else {
@@ -120,7 +120,6 @@ public class SemaforoCarro extends Carro {
                 }
                 
             }
-            
             
             try {
                 SemaforoCarro.sleep(r.nextInt(500));

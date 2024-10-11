@@ -33,11 +33,7 @@ public class ControleCarros extends Thread {
             segmento = malha.getSegmentosEntrada().get(idxListNodosEntrada);
             if (segmento.getCarro() == null && this.malha.getQtdCarrosCirculando() < this.qtdCarros) {
 
-                if (usaSemaforo) {
-                    carro = new SemaforoCarro(this.malha);
-                } else {
-                    carro = new MonitorCarro(this.malha);
-                }
+                carro = usaSemaforo ? new SemaforoCarro(this.malha) : new MonitorCarro(this.malha);
 
                 this.malha.adicionarCarroCirculando();
                 segmento.setCarro(carro);
