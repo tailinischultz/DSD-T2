@@ -30,6 +30,17 @@ public class Tela extends javax.swing.JFrame {
         this.jTextAreaMalha.setEditable(false);
         this.jTextFieldArquivoMalha.setEditable(false);
         this.jTextFieldIntervaloInsercao.setText("500");
+        this.btnAguardar.setEnabled(false);
+        this.btnEncerrar.setEnabled(false);
+        this.btnMonitor.setEnabled(false);
+        this.btnMalha.setEnabled(true);
+        this.jTextFieldArquivoMalha.setEnabled(true);
+        this.jTextFieldQtdCarros.setEnabled(true);
+        this.jTextFieldIntervaloInsercao.setEnabled(true);
+        this.btnSemaforo.setEnabled(false);
+        this.jTextFieldArquivoMalha.setText("");
+        this.jTextAreaMalha.setText("");
+        this.jTextFieldQtdCarros.setText("");
     }
 
     public JTextArea getTextArea() {
@@ -268,6 +279,7 @@ public class Tela extends javax.swing.JFrame {
     
     private void jButtonEncerrarActionPerformed(java.awt.event.ActionEvent evt) {
         this.controle.encerrar();
+        this.initController();
         this.btnAguardar.setEnabled(false);
         this.btnEncerrar.setEnabled(false);
         this.btnMonitor.setEnabled(false);
@@ -278,6 +290,7 @@ public class Tela extends javax.swing.JFrame {
         this.btnSemaforo.setEnabled(false);
         this.jTextFieldArquivoMalha.setText("");
         this.jTextAreaMalha.setText("");
+        this.jTextFieldQtdCarros.setText("");
     }
     
     private void jButtonAguardarActionPerformed(java.awt.event.ActionEvent evt) {
