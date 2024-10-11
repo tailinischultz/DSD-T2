@@ -24,17 +24,14 @@ public class ControleCarros extends Thread {
 
     @Override
     public void run() {
-        int contCarros = 0;
         int idxListNodosEntrada = 0;
         Carro carro;
         Segmento segmento;
 
         while (this.executando) {
-            
-            segmento = malha.getSegmentosEntrada().get(idxListNodosEntrada);
-            idxListNodosEntrada++;
 
-            if (segmento.getCarro() == null) {
+            segmento = malha.getSegmentosEntrada().get(idxListNodosEntrada);
+            if (segmento.getCarro() == null && this.malha.getQtdCarrosCirculando() < this.qtdCarros) {
 
                 if (usaSemaforo) {
                     carro = new SemaforoCarro(this.malha);
@@ -42,26 +39,22 @@ public class ControleCarros extends Thread {
                     carro = new MonitorCarro(this.malha);
                 }
 
+                this.malha.adicionarCarroCirculando();
                 segmento.setCarro(carro);
                 carro.setSegmentoAtual(segmento);
                 carro.start();
-
-                contCarros++;
-                if (contCarros >= this.qtdCarros) {
-                    this.executando = false;
-                }
+                idxListNodosEntrada++;
             }
-            
+
             if (idxListNodosEntrada >= malha.getSegmentosEntrada().size() - 1) {
                 idxListNodosEntrada = 0;
             }
-            
+
             try {
                 ControleCarros.sleep(this.tempo);
             } catch (InterruptedException ex) {
             }
         }
-
     }
 
 }

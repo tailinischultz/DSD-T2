@@ -11,11 +11,13 @@ public class MalhaViaria {
 
     private Segmento[][] segmentos;
     private List<Segmento> segmentosEntrada;
+    private int qtdCarrosCirculando;
 
     private boolean emExecucao;
     
     public MalhaViaria() {
         this.emExecucao = true;
+        qtdCarrosCirculando = 0;
     }
     
     public Segmento[][] lerDocumento(String path) throws FileNotFoundException, IOException {
@@ -173,4 +175,15 @@ public class MalhaViaria {
         return segmentos;
     }
 
+    public int getQtdCarrosCirculando() {
+        return qtdCarrosCirculando;
+    }
+
+    public void adicionarCarroCirculando(){
+        this.qtdCarrosCirculando++;
+    }
+    
+    public void diminuirCarroCirculando(){
+        this.qtdCarrosCirculando--;
+    }
 }

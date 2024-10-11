@@ -102,5 +102,6 @@ public class MonitorCarro extends Carro {
             }
         }
             super.getSegmentoAtual().setCarro(null);
+            super.getMalhaViaria().diminuirCarroCirculando();
     }
 }

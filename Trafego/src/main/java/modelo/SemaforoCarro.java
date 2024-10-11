@@ -130,6 +130,7 @@ public class SemaforoCarro extends Carro {
         }
         
         super.getSegmentoAtual().setCarro(null);
+        super.getMalhaViaria().diminuirCarroCirculando();
     }
 
 }
