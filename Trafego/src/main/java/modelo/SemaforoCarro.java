@@ -122,7 +122,7 @@ public class SemaforoCarro extends Carro {
             }
             
             try {
-                SemaforoCarro.sleep(r.nextInt(500));
+                SemaforoCarro.sleep(r.nextInt(500)+500);
             } catch (InterruptedException e) {
             }
             
