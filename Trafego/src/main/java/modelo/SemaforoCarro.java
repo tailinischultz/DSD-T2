@@ -68,8 +68,7 @@ public class SemaforoCarro extends Carro {
         while (super.getSegmentoAtual().getMalhaViaria().estaEmExecucao() && !super.getSegmentoAtual().isSaida()) {
 
             if (super.isEmCruzamento()) {
-
-                if (this.cruzamentoLivre()) {
+                if (!super.getCaminhoCruzamento().isEmpty()) {
                     if (this.temCaminhoReservado()) {
                         this.andarNoCruzamento();
                     } else {

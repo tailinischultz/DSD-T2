@@ -127,15 +127,6 @@ public abstract class Carro extends Thread {
         return proximoSegmento;
     }
 
-    public boolean cruzamentoLivre() {
-        boolean encontrouCaminho = false;
-        for (Segmento segmento : caminhoCruzamento) {
-            if (segmento != null) {
-                encontrouCaminho = true;
-            }
-        }
-        return encontrouCaminho;
-    }
 
     public void escolherCaminhoCruzamento(Segmento primeiroSegmento) {
         this.caminhoCruzamento.add(primeiroSegmento);
