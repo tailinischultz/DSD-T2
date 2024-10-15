@@ -5,12 +5,11 @@ import java.util.concurrent.Semaphore;
 
 public class SemaforoCarro extends Carro {
 
-    private final Semaphore semaforo;
+    private Semaphore semaforo;
 
-    public SemaforoCarro(MalhaViaria malhaViaria) {
+    public SemaforoCarro(MalhaViaria malhaViaria, Semaphore semaforo) {
         super.setEmCruzamento(false);
-        super.setCaminhoCruzamento(new Segmento[4]);
-        this.semaforo = new Semaphore(1);
+        this.semaforo = semaforo;
         super.setMalhaViaria(malhaViaria);
     }
 
@@ -36,49 +35,28 @@ public class SemaforoCarro extends Carro {
         }
         catch (InterruptedException ex) {}
         
-        boolean livre = true;
-        for (Segmento seg : super.getCaminhoCruzamento()) {
-            if (seg == null) {
-                break;
-            }
+                for (Segmento seg : super.getCaminhoCruzamento()) {
             if (seg.getReserva() != null) {
-                livre = false;
-                break;
+                this.semaforo.release();
+                return;
             }
-        }
-
-        if (!livre) {
-            this.semaforo.release();
-            return;
         }
 
         for (Segmento seg : super.getCaminhoCruzamento()) {
-            if (seg == null) {
-                break;
-            }
             seg.setReserva(this);
         }
         this.semaforo.release();
     }
 
     private void andarNoCruzamento() {
-        for (int i = 0; i < super.getCaminhoCruzamento().length; i++) {
-            Segmento nodo = super.getCaminhoCruzamento()[i];
-            if (nodo != null) {
-                this.andar(nodo);
-                nodo.setReserva(null);
-                super.getCaminhoCruzamento()[i] = null;
-                break;
-            }
+        for (Segmento seg : super.getCaminhoCruzamento()) {
+            this.andar(seg);
+            seg.setReserva(null);
+            super.getCaminhoCruzamento().remove(seg);
+            break;
         }
-        boolean andouTudo = true;
-        for (int i = 0; i < super.getCaminhoCruzamento().length; i++) {
-            if (super.getCaminhoCruzamento()[i] != null) {
-                andouTudo = false;
-                break;
-            }
-        }
-        if (andouTudo) {
+
+        if (super.getCaminhoCruzamento().isEmpty()) {
             super.setEmCruzamento(false);
         }
     }
@@ -114,15 +92,13 @@ public class SemaforoCarro extends Carro {
                 if (proximoNodo.isCruzamento()) {
                     super.setEmCruzamento(true);
                 } else {
-                    if (proximoNodo.getCarro() == null) {
-                        this.andar(proximoNodo);
-                    }
+                    this.andar(proximoNodo);
                 }
                 
             }
             
             try {
-                SemaforoCarro.sleep(r.nextInt(500)+500);
+                SemaforoCarro.sleep(r.nextInt(500)+2000);
             } catch (InterruptedException e) {
             }
             

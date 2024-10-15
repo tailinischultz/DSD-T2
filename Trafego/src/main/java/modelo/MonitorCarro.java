@@ -6,7 +6,6 @@ public class MonitorCarro extends Carro {
 
     public MonitorCarro(MalhaViaria malhaViaria) {
         super.setEmCruzamento(false);
-        super.setCaminhoCruzamento(new Segmento[4]);
         super.setMalhaViaria(malhaViaria);
     }
     
@@ -19,47 +18,26 @@ public class MonitorCarro extends Carro {
     }
 
     private synchronized void reservarCaminho() {
-        boolean livre = true;
         for (Segmento segmento : super.getCaminhoCruzamento()) {
-            if (segmento == null) {
-                break;
-            }
-            if (segmento.getReserva() != null) {
-                livre = false;
-                break;
+            if (segmento.getReserva() != null) {    
+                return;
             }
         }
 
-        if (!livre) {
-            return;
-        }
-
         for (Segmento segmento : super.getCaminhoCruzamento()) {
-            if (segmento == null) {
-                break;
-            }
             segmento.setReserva(this);
         }
     }
 
     private void andarNoCruzamento() {
-        for (int i = 0; i < super.getCaminhoCruzamento().length; i++) {
-            Segmento segmento = super.getCaminhoCruzamento()[i];
-            if (segmento != null) {
-                this.andar(segmento);
-                segmento.setReserva(null);
-                super.getCaminhoCruzamento()[i] = null;
-                break;
-            }
+        for (Segmento seg : super.getCaminhoCruzamento()) {
+            this.andar(seg);
+            seg.setReserva(null);
+            super.getCaminhoCruzamento().remove(seg);
+            break;
         }
-        boolean andouTudo = true;
-        for (int i = 0; i < super.getCaminhoCruzamento().length; i++) {
-            if (super.getCaminhoCruzamento()[i] != null) {
-                andouTudo = false;
-                break;
-            }
-        }
-        if (andouTudo) {
+
+        if (super.getCaminhoCruzamento().isEmpty()) {
             super.setEmCruzamento(false);
         }
     }
@@ -92,12 +70,12 @@ public class MonitorCarro extends Carro {
                 proximoSegmento = super.getProximoSegmento();
                 if (proximoSegmento.isCruzamento()) {
                     super.setEmCruzamento(true);
-                } else if (proximoSegmento.getCarro() == null) {
+                } else {
                     this.andar(proximoSegmento);
                 }
             }
             try {
-                MonitorCarro.sleep(r.nextInt( 500)+500);
+                MonitorCarro.sleep(r.nextInt( 500)+2000);
             } catch (InterruptedException e) {
             }
         }

@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public abstract class Carro extends Thread {
@@ -8,7 +10,11 @@ public abstract class Carro extends Thread {
     private Segmento segmentoAtual;
     private MalhaViaria malhaViaria;
     private boolean emCruzamento;
-    private Segmento[] caminhoCruzamento;
+    private List<Segmento> caminhoCruzamento;
+    
+    public Carro (){
+        this.caminhoCruzamento = new ArrayList<Segmento>();
+    }
 
     public Segmento getProximoSegmento() {
         Segmento proximoSegmento = null;
@@ -71,7 +77,7 @@ public abstract class Carro extends Thread {
         return proximoSegmento;
     }
 
-    public Segmento getProximoSegmentoCruzamento(Segmento segmentoDeReferencia, boolean forcaSairCruzamento, Segmento segmentoRefAnterior, Segmento[] listaCaminho, int idxSegmentoAtual) {
+    public Segmento getProximoSegmentoCruzamento(Segmento segmentoDeReferencia, boolean forcaSairCruzamento, Segmento segmentoRefAnterior, List<Segmento> listaCaminho, int idxSegmentoAtual) {
         Segmento proximoSegmento = null;
         Segmento a = null;
         Segmento b = null;
@@ -82,7 +88,7 @@ public abstract class Carro extends Thread {
             case "Cruzamento_Cima":
                 if (forcaSairCruzamento) {
                     proximoSegmento = this.getProximoSegmentoCruzamento(segmentoRefAnterior, true, null, null, 0);
-                    listaCaminho[idxSegmentoAtual] = null;
+                    listaCaminho.remove(idxSegmentoAtual);
                 } else {
                     proximoSegmento = this.malhaViaria.getProxSegmentoCima(segmentoDeReferencia);
                 }
@@ -90,7 +96,7 @@ public abstract class Carro extends Thread {
             case "Cruzamento_Direita":
                 if (forcaSairCruzamento) {
                     proximoSegmento = this.getProximoSegmentoCruzamento(segmentoRefAnterior, true, null, null, 0);
-                    listaCaminho[idxSegmentoAtual] = null;
+                    listaCaminho.remove(idxSegmentoAtual);
                 } else {
                     proximoSegmento = this.malhaViaria.getProxSegmentoDireita(segmentoDeReferencia);
                 }
@@ -98,7 +104,7 @@ public abstract class Carro extends Thread {
             case "Cruzamento_Baixo":
                 if (forcaSairCruzamento) {
                     proximoSegmento = this.getProximoSegmentoCruzamento(segmentoRefAnterior, true, null, null, 0);
-                    listaCaminho[idxSegmentoAtual] = null;
+                    listaCaminho.remove(idxSegmentoAtual);
                 } else {
                     proximoSegmento = this.malhaViaria.getProxSegmentoBaixo(segmentoDeReferencia);
                 }
@@ -106,7 +112,7 @@ public abstract class Carro extends Thread {
             case "Cruzamento_Esquerda":
                 if (forcaSairCruzamento) {
                     proximoSegmento = this.getProximoSegmentoCruzamento(segmentoRefAnterior, true, null, null, 0);
-                    listaCaminho[idxSegmentoAtual] = null;
+                    listaCaminho.remove(idxSegmentoAtual);
                 } else {
                     proximoSegmento = this.malhaViaria.getProxSegmentoEsquerda(segmentoDeReferencia);
                 }
@@ -162,27 +168,17 @@ public abstract class Carro extends Thread {
         return encontrouCaminho;
     }
 
-    public void escolherCaminhoCruzamento(Segmento nodoIniCruzamento) {
-        this.caminhoCruzamento[0] = nodoIniCruzamento;
+    public void escolherCaminhoCruzamento(Segmento primeiroSegmento) {
+        this.caminhoCruzamento.add(primeiroSegmento);
         Segmento viagemNoTempo = null;
         for (int i = 1; i <= 3; i++) {
-            Segmento prox = this.getProximoSegmentoCruzamento(this.caminhoCruzamento[(i - 1)], (i == 3), viagemNoTempo, this.caminhoCruzamento, (i - 1));
-            this.caminhoCruzamento[i] = prox;
-            viagemNoTempo = this.caminhoCruzamento[(i - 1)];
+            Segmento prox = this.getProximoSegmentoCruzamento(this.caminhoCruzamento.get(i - 1), (i == 3), viagemNoTempo, this.caminhoCruzamento, (i - 1));
+            this.caminhoCruzamento.add(prox);
+            viagemNoTempo = this.caminhoCruzamento.get(i - 1);
             if (!prox.isCruzamento()) {
                 break;
             }
         }
-
-        Segmento[] caminhoCruzamentoAux = new Segmento[4];
-        int contIdxAtual = 0;
-        for (Segmento nodo : this.caminhoCruzamento) {
-            if (nodo != null) {
-                caminhoCruzamentoAux[contIdxAtual] = nodo;
-                contIdxAtual++;
-            }
-        }
-        this.caminhoCruzamento = caminhoCruzamentoAux;
     }
 
     public boolean temCaminhoReservado() {
@@ -223,11 +219,11 @@ public abstract class Carro extends Thread {
         this.emCruzamento = emCruzamento;
     }
 
-    public Segmento[] getCaminhoCruzamento() {
+    public List<Segmento> getCaminhoCruzamento() {
         return caminhoCruzamento;
     }
 
-    public void setCaminhoCruzamento(Segmento[] caminhoCruzamento) {
+    public void setCaminhoCruzamento(List<Segmento> caminhoCruzamento) {
         this.caminhoCruzamento = caminhoCruzamento;
     }
 
