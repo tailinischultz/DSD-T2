@@ -49,23 +49,21 @@ public class MonitorCarro extends Carro {
         while (super.getSegmentoAtual().getMalhaViaria().estaEmExecucao() && !super.getSegmentoAtual().isSaida()) {
             if (super.isEmCruzamento()) {
                 if (super.cruzamentoLivre()) {
-                if (super.temCaminhoReservado()) {
-                    this.andarNoCruzamento();
-                }
-                else {
+                    if (super.temCaminhoReservado()) {
+                        this.andarNoCruzamento();
+                    } else {
+                        this.reservarCaminho();
+                        if (super.temCaminhoReservado()) {
+                            this.andarNoCruzamento();
+                        }
+                    }
+                } else {
+                    super.escolherCaminhoCruzamento(proximoSegmento);
                     this.reservarCaminho();
                     if (super.temCaminhoReservado()) {
                         this.andarNoCruzamento();
                     }
-                 }
                 }
-                 else {
-                     super.escolherCaminhoCruzamento(proximoSegmento);
-                     this.reservarCaminho();
-                    if (super.temCaminhoReservado()) {
-                 this.andarNoCruzamento();
-                 }
-                 }
             } else {
                 proximoSegmento = super.getProximoSegmento();
                 if (proximoSegmento.isCruzamento()) {
@@ -75,11 +73,11 @@ public class MonitorCarro extends Carro {
                 }
             }
             try {
-                MonitorCarro.sleep(r.nextInt( 500)+2000);
+                MonitorCarro.sleep(r.nextInt(500) + 2000);
             } catch (InterruptedException e) {
             }
         }
-            super.getSegmentoAtual().setCarro(null);
-            super.getMalhaViaria().diminuirCarroCirculando();
+        super.getSegmentoAtual().setCarro(null);
+        super.getMalhaViaria().diminuirCarroCirculando();
     }
 }

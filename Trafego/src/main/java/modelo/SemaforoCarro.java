@@ -32,10 +32,10 @@ public class SemaforoCarro extends Carro {
     private void reservarCaminho() {
         try {
             this.semaforo.acquire();
+        } catch (InterruptedException ex) {
         }
-        catch (InterruptedException ex) {}
-        
-                for (Segmento seg : super.getCaminhoCruzamento()) {
+
+        for (Segmento seg : super.getCaminhoCruzamento()) {
             if (seg.getReserva() != null) {
                 this.semaforo.release();
                 return;
@@ -66,9 +66,9 @@ public class SemaforoCarro extends Carro {
         Random r = new Random();
         Segmento proximoNodo = null;
         while (super.getSegmentoAtual().getMalhaViaria().estaEmExecucao() && !super.getSegmentoAtual().isSaida()) {
-            
+
             if (super.isEmCruzamento()) {
-                
+
                 if (this.cruzamentoLivre()) {
                     if (this.temCaminhoReservado()) {
                         this.andarNoCruzamento();
@@ -85,25 +85,25 @@ public class SemaforoCarro extends Carro {
                         this.andarNoCruzamento();
                     }
                 }
-                
+
             } else {
-                
+
                 proximoNodo = super.getProximoSegmento();
                 if (proximoNodo.isCruzamento()) {
                     super.setEmCruzamento(true);
                 } else {
                     this.andar(proximoNodo);
                 }
-                
+
             }
-            
+
             try {
-                SemaforoCarro.sleep(r.nextInt(500)+2000);
+                SemaforoCarro.sleep(r.nextInt(500) + 2000);
             } catch (InterruptedException e) {
             }
-            
+
         }
-        
+
         super.getSegmentoAtual().setCarro(null);
         super.getMalhaViaria().diminuirCarroCirculando();
     }

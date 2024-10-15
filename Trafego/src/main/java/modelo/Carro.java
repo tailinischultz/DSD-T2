@@ -17,64 +17,33 @@ public abstract class Carro extends Thread {
     }
 
     public Segmento getProximoSegmento() {
-        Segmento proximoSegmento = null;
-        Segmento a = null;
-        Segmento b = null;
         switch (this.segmentoAtual.getDirecao()) {
             case "Estrada_Cima":
-                proximoSegmento = this.malhaViaria.getProxSegmentoCima(this.segmentoAtual);
-                break;
+                return this.malhaViaria.getProxSegmentoCima(this.segmentoAtual);
             case "Estrada_Direita":
-                proximoSegmento = this.malhaViaria.getProxSegmentoDireita(this.segmentoAtual);
-                break;
+                return this.malhaViaria.getProxSegmentoDireita(this.segmentoAtual);
             case "Estrada_Baixo":
-                proximoSegmento = this.malhaViaria.getProxSegmentoBaixo(this.segmentoAtual);
-                break;
+                return this.malhaViaria.getProxSegmentoBaixo(this.segmentoAtual);
             case "Estrada_Esquerda":
-                proximoSegmento = this.malhaViaria.getProxSegmentoEsquerda(this.segmentoAtual);
-                break;
+                return this.malhaViaria.getProxSegmentoEsquerda(this.segmentoAtual);
             case "Cruzamento_Cima":
-                proximoSegmento = this.malhaViaria.getProxSegmentoCima(this.segmentoAtual);
-                break;
+                return this.malhaViaria.getProxSegmentoCima(this.segmentoAtual);
             case "Cruzamento_Direita":
-                proximoSegmento = this.malhaViaria.getProxSegmentoDireita(this.segmentoAtual);
-                break;
+                return this.malhaViaria.getProxSegmentoDireita(this.segmentoAtual);
             case "Cruzamento_Baixo":
-                proximoSegmento = this.malhaViaria.getProxSegmentoBaixo(this.segmentoAtual);
-                break;
+                return this.malhaViaria.getProxSegmentoBaixo(this.segmentoAtual);
             case "Cruzamento_Esquerda":
-                proximoSegmento = this.malhaViaria.getProxSegmentoEsquerda(this.segmentoAtual);
-                break;
+                return this.malhaViaria.getProxSegmentoEsquerda(this.segmentoAtual);
             case "Cruzamento_Baixo_Direita":
-                a = this.malhaViaria.getProxSegmentoBaixo(this.segmentoAtual);
-                b = this.malhaViaria.getProxSegmentoDireita(this.segmentoAtual);
-
-                proximoSegmento = a.isCruzamento() ? b : a;
-
-                break;
+                return this.malhaViaria.getProxSegmentoBaixo(this.segmentoAtual).isCruzamento() ? this.malhaViaria.getProxSegmentoDireita(this.segmentoAtual) : this.malhaViaria.getProxSegmentoBaixo(this.segmentoAtual);
             case "Cruzamento_Baixo_Esquerda":
-                a = this.malhaViaria.getProxSegmentoBaixo(this.segmentoAtual);
-                b = this.malhaViaria.getProxSegmentoEsquerda(this.segmentoAtual);
-
-                proximoSegmento = a.isCruzamento() ? b : a;
-
-                break;
+                return this.malhaViaria.getProxSegmentoBaixo(this.segmentoAtual).isCruzamento() ? this.malhaViaria.getProxSegmentoEsquerda(this.segmentoAtual) : this.malhaViaria.getProxSegmentoBaixo(this.segmentoAtual);
             case "Cruzamento_Cima_Direita":
-                a = this.malhaViaria.getProxSegmentoCima(this.segmentoAtual);
-                b = this.malhaViaria.getProxSegmentoDireita(this.segmentoAtual);
-
-                proximoSegmento = a.isCruzamento() ? b : a;
-
-                break;
+                return this.malhaViaria.getProxSegmentoCima(this.segmentoAtual).isCruzamento() ? this.malhaViaria.getProxSegmentoDireita(this.segmentoAtual) : this.malhaViaria.getProxSegmentoCima(this.segmentoAtual);
             case "Cruzamento_Cima_Esquerda":
-                a = this.malhaViaria.getProxSegmentoCima(this.segmentoAtual);
-                b = this.malhaViaria.getProxSegmentoEsquerda(this.segmentoAtual);
-
-                proximoSegmento = a.isCruzamento() ? b : a;
-
-                break;
+                return this.malhaViaria.getProxSegmentoCima(this.segmentoAtual).isCruzamento() ? this.malhaViaria.getProxSegmentoEsquerda(this.segmentoAtual) : this.malhaViaria.getProxSegmentoCima(this.segmentoAtual);
         }
-        return proximoSegmento;
+        return null;
     }
 
     public Segmento getProximoSegmentoCruzamento(Segmento segmentoDeReferencia, boolean forcaSairCruzamento, Segmento segmentoRefAnterior, List<Segmento> listaCaminho, int idxSegmentoAtual) {
@@ -170,12 +139,12 @@ public abstract class Carro extends Thread {
 
     public void escolherCaminhoCruzamento(Segmento primeiroSegmento) {
         this.caminhoCruzamento.add(primeiroSegmento);
-        Segmento viagemNoTempo = null;
+        Segmento segmentoAnterior = null;
         for (int i = 1; i <= 3; i++) {
-            Segmento prox = this.getProximoSegmentoCruzamento(this.caminhoCruzamento.get(i - 1), (i == 3), viagemNoTempo, this.caminhoCruzamento, (i - 1));
-            this.caminhoCruzamento.add(prox);
-            viagemNoTempo = this.caminhoCruzamento.get(i - 1);
-            if (!prox.isCruzamento()) {
+            Segmento proximoSegmento = this.getProximoSegmentoCruzamento(this.caminhoCruzamento.get(i - 1), (i == 3), segmentoAnterior, this.caminhoCruzamento, (i - 1));
+            this.caminhoCruzamento.add(proximoSegmento);
+            segmentoAnterior = this.caminhoCruzamento.get(i - 1);
+            if (!proximoSegmento.isCruzamento()) {
                 break;
             }
         }
@@ -183,9 +152,7 @@ public abstract class Carro extends Thread {
 
     public boolean temCaminhoReservado() {
         for (Segmento segmento : this.caminhoCruzamento) {
-            if (segmento != null) {
-                return segmento.getReserva() == this;
-            }
+            return segmento.getReserva() == this;
         }
         return false;
     }
