@@ -73,7 +73,7 @@ public class MonitorCarro extends Carro {
                 }
             }
             try {
-                MonitorCarro.sleep(r.nextInt(500) + 2000);
+                MonitorCarro.sleep(r.nextInt(500) + 100);
             } catch (InterruptedException e) {
             }
         }
