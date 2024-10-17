@@ -7,9 +7,9 @@ public class SemaforoCarro extends Carro {
 
     private Semaphore semaforo;
 
-    public SemaforoCarro(MalhaViaria malhaViaria) {
+    public SemaforoCarro(MalhaViaria malhaViaria, Semaphore semaforo) {
         super.setEmCruzamento(false);
-        this.semaforo = new Semaphore(1);
+        this.semaforo = semaforo;
         super.setMalhaViaria(malhaViaria);
     }
 
@@ -97,7 +97,7 @@ public class SemaforoCarro extends Carro {
             }
 
             try {
-                SemaforoCarro.sleep(r.nextInt(500) + 100);
+                SemaforoCarro.sleep(r.nextInt(500) + 500);
             } catch (InterruptedException e) {
             }
 

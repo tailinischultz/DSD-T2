@@ -10,6 +10,7 @@ public class ControleCarros extends Thread {
     private int tempo;
     private int qtdCarros;
     private boolean usaSemaforo;
+    private Semaphore semaforo;
 
 
     public ControleCarros(MalhaViaria malha, boolean usaSemaforo, int tempo, int qtdCarros) {
@@ -18,6 +19,7 @@ public class ControleCarros extends Thread {
         this.tempo = tempo;
         this.qtdCarros = qtdCarros;
         this.usaSemaforo = usaSemaforo;
+        this.semaforo = new Semaphore(1);
     }
 
     public void setExecutando(boolean executando) {
@@ -35,16 +37,15 @@ public class ControleCarros extends Thread {
             segmento = malha.getSegmentosEntrada().get(idxListNodosEntrada);
             if (segmento.getCarro() == null && this.malha.getQtdCarrosCirculando() < this.qtdCarros) {
 
-                carro = usaSemaforo ? new SemaforoCarro(this.malha) : new MonitorCarro(this.malha);
+                carro = usaSemaforo ? new SemaforoCarro(this.malha, this.semaforo) : new MonitorCarro(this.malha);
 
                 this.malha.adicionarCarroCirculando();
                 segmento.setCarro(carro);
                 carro.setSegmentoAtual(segmento);
                 carro.start();
             }
-            
-            idxListNodosEntrada++;
 
+            idxListNodosEntrada++;
 
             if (idxListNodosEntrada >= malha.getSegmentosEntrada().size()) {
                 idxListNodosEntrada = 0;
